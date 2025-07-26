@@ -25,3 +25,13 @@ mongoose.connect(process.env.MONGODB).then(()=>{
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "INTERNAL SERVER ERROR";
+  return res.status(statusCode).send({
+    success : false,
+    statusCode,
+    message,
+  });
+});
+
