@@ -49,14 +49,10 @@ export const google = async (req, res, next) => {
     );
     if (!user) {
       // first‑time Google signup
-      const generatedPassword =
-        Math.random().toString(36).slice(-8) +
-        Math.random().toString(36).slice(-8);
+      const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
       const hashedPass = bcryptjs.hashSync(generatedPassword, 10);
       user = await new User({
-        userName:
-          name.split(" ").join("").toLowerCase() +
-          Math.random().toString(36).slice(-4),
+        userName: name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
         emailID: email,
         password: hashedPass,
         avatar: photo,
